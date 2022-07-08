@@ -1,8 +1,7 @@
 steps:
   - name: gcr.io/$PROJECT_ID/ko
-    entrypoint: /bin/sh
     env:
       - 'KO_DOCKER_REPO=gcr.io/$PROJECT_ID/feed'
     args:
-      - -c
-      - 'ko build ./cmd/feed'
+      - build
+      - ./cmd/feed
