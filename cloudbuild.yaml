@@ -1,7 +1,9 @@
 steps:
-  - name: gcr.io/$PROJECT_ID/ko
-    env:
-      - 'KO_DOCKER_REPO=gcr.io/$PROJECT_ID/feed'
+  - name: gcr.io/cloud-builders/docker
     args:
       - build
-      - ./cmd/feed
+      - "--tag=gcr.io/${PROJECT_ID}/feed"
+      - "--file=_docker/feed/Dockerfile"
+      - .
+images:
+- gcr.io/${PROJECT_ID}/feed

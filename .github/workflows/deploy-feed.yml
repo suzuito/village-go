@@ -15,4 +15,4 @@ jobs:
       - uses: imjasonh/setup-ko@v0.4
         env:
           KO_DOCKER_REPO: gcr.io/village-go-godzilla/feed
-      - run: ko publish ./cmd/feed
+      - run: ko build ./cmd/feed
