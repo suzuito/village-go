@@ -12,7 +12,7 @@ require (
 	github.com/rs/zerolog v1.27.0
 	golang.org/x/oauth2 v0.0.0-20220630143837-2104d58473e0
 	google.golang.org/api v0.59.0
-	google.golang.org/grpc v1.40.0
+	google.golang.org/grpc v1.47.0
 )
 
 require (
