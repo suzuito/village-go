@@ -1,10 +1,11 @@
 on:
+  pull_request: # FIXME 後で消す
   push:
     branches:
       - main
 jobs:
-  test:
-    name: Test
+  publish:
+    name: publish
     runs-on: ubuntu-latest
     steps:
       - uses: imjasonh/setup-ko@v0.4
