@@ -1,0 +1,11 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: imjasonh/setup-ko@v0.4
+      - run: KO_DOCKER_REPO=gcr.io/village-go-godzilla/feed ko build ./cmd/feed

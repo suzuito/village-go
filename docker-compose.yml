@@ -1,0 +1,22 @@
+version: '3'
+services:
+  local:
+    build:
+      context: _devenv/local
+    env_file: _devenv/local/dev.env
+    working_dir: /opt/app
+    volumes:
+      - .:/opt/app
+    command: /bin/bash -c 'sleep infinity'
+    depends_on:
+      - firebase
+  firebase:
+    build:
+      context: _devenv/firebase
+    working_dir: /opt/app
+    volumes:
+      - .:/opt/app
+    command: /bin/sh -c '/usr/local/bin/firebase emulators:start --project=dummy-prj'
+    ports:
+      - 8081:8081
+      - 8082:8082
