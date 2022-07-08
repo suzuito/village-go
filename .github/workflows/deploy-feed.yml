@@ -1,0 +1,16 @@
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    name: DeployFeed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - uses: imjasonh/setup-ko@v0.4
+      - run: ko publish ./cmd/feed
