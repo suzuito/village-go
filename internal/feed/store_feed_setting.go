@@ -36,3 +36,16 @@ func (t *StoreFeedSetting) GetFeedSettings(
 	}
 	return nil
 }
+
+func (t *StoreFeedSetting) PutFeedSetting(
+	ctx context.Context,
+	setting *entity.FeedSetting,
+) error {
+	doc := t.FirestoreClient.
+		Collection(colNameFeedSettings).
+		Doc(string(setting.ID))
+	if _, err := doc.Set(ctx, setting); err != nil {
+		return fmt.Errorf("Set is failed : %w", err)
+	}
+	return nil
+}

@@ -12,11 +12,6 @@ var (
 	colNameFeedHistories   = "FeedHistories"
 )
 
-type docFeedSubscriber struct {
-	entity.FeedSubscriber
-	FeedSettingID entity.FeedSettingID
-}
-
 type docFeedHistory struct {
 	ID           string
 	SubscriberID entity.FeedSubscriberID

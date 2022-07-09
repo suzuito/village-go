@@ -44,6 +44,10 @@ type StoreFeedSetting interface {
 		ctx context.Context,
 		settings *[]*entity.FeedSetting,
 	) error
+	PutFeedSetting(
+		ctx context.Context,
+		setting *entity.FeedSetting,
+	) error
 }
 
 type StoreFeedHistory interface {
@@ -65,6 +69,10 @@ type StoreFeedSubscriber interface {
 		ctx context.Context,
 		settingID entity.FeedSettingID,
 		subscribers *[]*entity.FeedSubscriber,
+	) error
+	PutSubscriber(
+		ctx context.Context,
+		subscriber *entity.FeedSubscriber,
 	) error
 }
 

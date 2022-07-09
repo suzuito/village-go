@@ -46,7 +46,6 @@ func (t *FetcherFeedGolangBlogFeed) Fetch(
 		if dateString == "" {
 			return
 		}
-		author := s.Find(".author").Text()
 		blogURL := fmt.Sprintf("%s%s", baseURL, href)
 		publishedAt, err := time.Parse("2 January 2006", dateString)
 		if err != nil {
@@ -54,8 +53,6 @@ func (t *FetcherFeedGolangBlogFeed) Fetch(
 			log.Error().Err(err).Str("dateString", dateString).Msgf("Parse is failed")
 			return
 		}
-		fmt.Printf("%s %s %s %+v %s\n", author, title, dateString, publishedAt, blogURL)
-
 		item := entity.FeedItem{
 			ID:          entity.FeedItemID(fmt.Sprintf("golang-blog-%s", publishedAt.Format("2006-01-02"))), // FIXME
 			Title:       title,
