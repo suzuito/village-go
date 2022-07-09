@@ -7,10 +7,14 @@ import (
 	"time"
 
 	"github.com/getsentry/sentry-go"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"github.com/suzuito/village-go/pkg/inject"
 )
 
 func main() {
+	log.Level(zerolog.DebugLevel)
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 	ctx := context.Background()
 	err := sentry.Init(sentry.ClientOptions{
 		TracesSampleRate: 1.0,

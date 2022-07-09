@@ -29,11 +29,24 @@ func (t *StoreFeedSubscriber) GetSubscribers(
 		if err != nil {
 			return fmt.Errorf("Next is failed : %w", err)
 		}
-		dSubscriber := docFeedSubscriber{}
-		if err := doc.DataTo(&dSubscriber); err != nil {
+		subscriber := entity.FeedSubscriber{}
+		if err := doc.DataTo(&subscriber); err != nil {
 			return fmt.Errorf("DataTo is failed : %w", err)
 		}
-		*subscribers = append(*subscribers, &dSubscriber.FeedSubscriber)
+		*subscribers = append(*subscribers, &subscriber)
+	}
+	return nil
+}
+
+func (t *StoreFeedSubscriber) PutSubscriber(
+	ctx context.Context,
+	subscriber *entity.FeedSubscriber,
+) error {
+	docRef := t.FirestoreClient.
+		Collection(colNameFeedSubscribers).
+		Doc(string(subscriber.ID))
+	if _, err := docRef.Set(ctx, subscriber); err != nil {
+		return fmt.Errorf("Set is failed : %w", err)
 	}
 	return nil
 }

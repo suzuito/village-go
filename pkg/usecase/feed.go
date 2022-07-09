@@ -23,6 +23,7 @@ func (t *Usecase) InvokeFeeds(ctx context.Context) error {
 			log.Error().Err(err).Msgf("PublishFeed is failed")
 			continue
 		}
+		log.Info().Str("FeedSettingID", string(setting.ID)).Msgf("InvokePublishFeed")
 	}
 	return nil
 }
@@ -36,10 +37,12 @@ func (t *Usecase) PublishFeed(
 	if err := t.FetchersFeed.Fetch(ctx, now, setting, &items); err != nil {
 		return fmt.Errorf("Fetch is failed : %w", err)
 	}
+	log.Info().Str("FeedSettingID", string(setting.ID)).Int("Feeds", len(items)).Msgf("FetchFeed")
 	subscribers := []*entity.FeedSubscriber{}
 	if err := t.StoreFeedSubscriber.GetSubscribers(ctx, setting.ID, &subscribers); err != nil {
 		return fmt.Errorf("GetSubscribers is failed : %w", err)
 	}
+	log.Info().Str("FeedSettingID", string(setting.ID)).Int("Feeds", len(items)).Int("FeedSubscribers", len(subscribers)).Msgf("GetSubscribers")
 	for _, subscriber := range subscribers {
 		filteredItems := []*entity.FeedItem{}
 		if err := t.StoreFeedHistory.FilterAlreadySent(ctx, subscriber.ID, items, &filteredItems); err != nil {
@@ -53,6 +56,7 @@ func (t *Usecase) PublishFeed(
 			sentry.CaptureException(err)
 			continue
 		}
+		log.Info().Str("FeedSettingID", string(setting.ID)).Str("FeedSubscriberID", string(subscriber.ID)).Int("Feeds", len(filteredItems)).Int("Success", len(result.Success)).Int("Fail", len(result.Fail)).Msgf("Publish")
 		if len(result.Success) <= 0 {
 			return nil
 		}

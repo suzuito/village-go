@@ -50,8 +50,8 @@ const (
 )
 
 type FeedSubscriber struct {
-	ID   FeedSubscriberID
-	Type FeedSubscriberType
-
+	ID               FeedSubscriberID
+	FeedSettingID    FeedSettingID
+	Type             FeedSubscriberType
 	DiscordChannelID string
 }

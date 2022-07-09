@@ -33,8 +33,10 @@ func NewUsecase(ctx context.Context) (*usecase.Usecase, error) {
 	if err != nil {
 		return nil, fmt.Errorf("New is failed : %w", err)
 	}
-	discordCli.Debug = true
-	discordCli.LogLevel = discordgo.LogDebug
+	if setting.E.Env == "dev" {
+		discordCli.Debug = true
+		discordCli.LogLevel = discordgo.LogDebug
+	}
 	u.DiscordClient = discordCli
 	u.StoreFeedSubscriber = &feed.StoreFeedSubscriber{
 		FirestoreClient: cliFirestore,
