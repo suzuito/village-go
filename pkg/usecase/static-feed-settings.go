@@ -31,18 +31,20 @@ func (t *Usecase) InitStaticFeedSettings(ctx context.Context) error {
 	if setting.E.Env == "godzilla" {
 		subscribers = append(subscribers, entity.FeedSubscriber{
 			ID:               "go-blog1-discord-news",
+			FeedSettingID:    "go-blog-1",
 			Type:             "discord",
 			DiscordChannelID: "995138145765044234",
 		})
 		subscribers = append(subscribers, entity.FeedSubscriber{
 			ID:               "twitter-golang-discord-news",
+			FeedSettingID:    "twitter-golang",
 			Type:             "discord",
 			DiscordChannelID: "995138145765044234",
 		})
 	} else {
 		subscribers = append(subscribers, entity.FeedSubscriber{
 			ID:               "go-blog1-discord-news",
-			FeedSettingID:    "go-blog1",
+			FeedSettingID:    "go-blog-1",
 			Type:             "discord",
 			DiscordChannelID: "994062861427036210",
 		})
