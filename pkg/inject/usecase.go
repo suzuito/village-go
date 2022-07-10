@@ -26,9 +26,11 @@ func NewUsecase(ctx context.Context) (*usecase.Usecase, error) {
 	u.StoreFeedHistory = &feed.StoreFeedHistory{
 		FirestoreClient: cliFirestore,
 	}
-	u.StoreFeedSetting = &feed.StoreFeedSetting{
+	storeFeedSetting := &feed.StoreFeedSetting{
 		FirestoreClient: cliFirestore,
 	}
+	u.StoreFeedSetting = storeFeedSetting
+	u.StoreFeedSubscriber = storeFeedSetting
 	discordCli, err := discordgo.New("Bot " + setting.E.DiscordBotToken)
 	if err != nil {
 		return nil, fmt.Errorf("New is failed : %w", err)
@@ -38,9 +40,6 @@ func NewUsecase(ctx context.Context) (*usecase.Usecase, error) {
 		discordCli.LogLevel = discordgo.LogDebug
 	}
 	u.DiscordClient = discordCli
-	u.StoreFeedSubscriber = &feed.StoreFeedSubscriber{
-		FirestoreClient: cliFirestore,
-	}
 	u.FetchersFeed = usecase.FetchersFeed{
 		Fetchers: map[entity.FeedSettingType]usecase.FetcherFeed{
 			entity.FeedSettingTypeGoBlog: &usecase.FetcherFeedGolangBlogFeed{

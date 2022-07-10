@@ -4,16 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"cloud.google.com/go/firestore"
 	"github.com/suzuito/village-go/pkg/entity"
 	"google.golang.org/api/iterator"
 )
 
-type StoreFeedSubscriber struct {
-	FirestoreClient *firestore.Client
-}
-
-func (t *StoreFeedSubscriber) GetSubscribers(
+func (t *StoreFeedSetting) GetSubscribers(
 	ctx context.Context,
 	settingID entity.FeedSettingID,
 	subscribers *[]*entity.FeedSubscriber,
@@ -38,7 +33,7 @@ func (t *StoreFeedSubscriber) GetSubscribers(
 	return nil
 }
 
-func (t *StoreFeedSubscriber) PutSubscriber(
+func (t *StoreFeedSetting) PutSubscriber(
 	ctx context.Context,
 	subscriber *entity.FeedSubscriber,
 ) error {
