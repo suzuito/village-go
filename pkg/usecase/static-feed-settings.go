@@ -46,13 +46,13 @@ func (t *Usecase) InitStaticFeedSettings(ctx context.Context) error {
 			ID:               "go-blog1-discord-news",
 			FeedSettingID:    "go-blog-1",
 			Type:             "discord",
-			DiscordChannelID: "994062861427036210",
+			DiscordChannelID: "995482323241947196",
 		})
 		subscribers = append(subscribers, entity.FeedSubscriber{
 			ID:               "twitter-golang-discord-news",
 			FeedSettingID:    "twitter-golang",
 			Type:             "discord",
-			DiscordChannelID: "994062861427036210",
+			DiscordChannelID: "995482323241947196",
 		})
 	}
 	for _, subscriber := range subscribers {
