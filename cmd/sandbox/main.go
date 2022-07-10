@@ -1,37 +1,10 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-
 	"github.com/bwmarrin/discordgo"
-	"github.com/suzuito/village-go/pkg/inject"
 )
 
 func main() {
-	ctx := context.Background()
-	// discordCli, err := discordgo.New("Bot " + setting.E.DiscordBotToken)
-	// if err != nil {
-	// 	fmt.Printf("%+v\n", err)
-	// 	os.Exit(1)
-	// }
-	// discordCli.Debug = true
-	// discordCli.LogLevel = discordgo.LogDebug
-	// defer discordCli.Close()
-	// if err := mainSendMessage002(discordCli); err != nil {
-	// 	fmt.Printf("%+v\n", err)
-	// 	os.Exit(1)
-	// }
-	u, err := inject.NewUsecase(ctx)
-	if err != nil {
-		fmt.Printf("%+v\n", err)
-		os.Exit(1)
-	}
-	if err := u.InvokeFeeds(ctx); err != nil {
-		fmt.Printf("%+v\n", err)
-		os.Exit(1)
-	}
 }
 
 func mainSendMessage001(
