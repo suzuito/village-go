@@ -51,7 +51,6 @@ const (
 
 type FeedSubscriber struct {
 	ID               FeedSubscriberID
-	FeedSettingID    FeedSettingID
 	Type             FeedSubscriberType
 	DiscordChannelID string
 }

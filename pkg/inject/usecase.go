@@ -30,7 +30,6 @@ func NewUsecase(ctx context.Context) (*usecase.Usecase, error) {
 		FirestoreClient: cliFirestore,
 	}
 	u.StoreFeedSetting = storeFeedSetting
-	u.StoreFeedSubscriber = storeFeedSetting
 	discordCli, err := discordgo.New("Bot " + setting.E.DiscordBotToken)
 	if err != nil {
 		return nil, fmt.Errorf("New is failed : %w", err)

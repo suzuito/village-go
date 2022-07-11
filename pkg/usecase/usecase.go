@@ -48,6 +48,26 @@ type StoreFeedSetting interface {
 		ctx context.Context,
 		setting *entity.FeedSetting,
 	) error
+	GetFeedSubscribers(
+		ctx context.Context,
+		settingID entity.FeedSettingID,
+		subscribers *[]*entity.FeedSubscriber,
+	) error
+	PutFeedSubscriber(
+		ctx context.Context,
+		subscriber *entity.FeedSubscriber,
+	) error
+
+	Subscribe(
+		ctx context.Context,
+		subscriberID entity.FeedSubscriberID,
+		settingID entity.FeedSettingID,
+	) error
+	Unsubscribe(
+		ctx context.Context,
+		subscriberID entity.FeedSubscriberID,
+		settingID entity.FeedSettingID,
+	) error
 }
 
 type StoreFeedHistory interface {
@@ -64,26 +84,13 @@ type StoreFeedHistory interface {
 	) error
 }
 
-type StoreFeedSubscriber interface {
-	GetSubscribers(
-		ctx context.Context,
-		settingID entity.FeedSettingID,
-		subscribers *[]*entity.FeedSubscriber,
-	) error
-	PutSubscriber(
-		ctx context.Context,
-		subscriber *entity.FeedSubscriber,
-	) error
-}
-
 type DiscordClient interface {
 	ChannelMessageSendComplex(channelID string, data *discordgo.MessageSend) (st *discordgo.Message, err error)
 }
 
 type Usecase struct {
-	StoreFeedHistory    StoreFeedHistory
-	StoreFeedSubscriber StoreFeedSubscriber
-	StoreFeedSetting    StoreFeedSetting
-	FetchersFeed        FetchersFeed
-	DiscordClient       DiscordClient
+	StoreFeedHistory StoreFeedHistory
+	StoreFeedSetting StoreFeedSetting
+	FetchersFeed     FetchersFeed
+	DiscordClient    DiscordClient
 }

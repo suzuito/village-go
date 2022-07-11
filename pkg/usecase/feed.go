@@ -39,7 +39,7 @@ func (t *Usecase) PublishFeed(
 	}
 	log.Info().Str("FeedSettingID", string(setting.ID)).Int("Feeds", len(items)).Msgf("FetchFeed")
 	subscribers := []*entity.FeedSubscriber{}
-	if err := t.StoreFeedSubscriber.GetSubscribers(ctx, setting.ID, &subscribers); err != nil {
+	if err := t.StoreFeedSetting.GetFeedSubscribers(ctx, setting.ID, &subscribers); err != nil {
 		return fmt.Errorf("GetSubscribers is failed : %w", err)
 	}
 	log.Info().Str("FeedSettingID", string(setting.ID)).Int("Feeds", len(items)).Int("FeedSubscribers", len(subscribers)).Msgf("GetSubscribers")
@@ -96,7 +96,6 @@ func (t *Usecase) PublishEachDiscord(
 	items []*entity.FeedItem,
 ) (PublishFeedEachResult, error) {
 	result := PublishFeedEachResult{}
-	// channelID := "994062861427036210"
 	var errReturned error
 	for _, item := range items {
 		msg := discordgo.MessageSend{}
