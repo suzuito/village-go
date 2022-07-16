@@ -3,6 +3,7 @@ package feed
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"cloud.google.com/go/firestore"
 	"github.com/suzuito/village-go/pkg/entity"
@@ -64,6 +65,7 @@ func (t *StoreFeedHistory) Put(
 ) error {
 	for _, item := range items {
 		d := newDocFeedHistory(subscriberID, item.ID)
+		d.CreatedAt = time.Now()
 		doc := t.FirestoreClient.
 			Collection(colNameFeedHistories).
 			Doc(d.ID)

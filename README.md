@@ -3,6 +3,7 @@
 
 ```bash
 make init
+docker-compose exec local go run ./cmd/feed/*.go
 ```
 
 - Firestore
