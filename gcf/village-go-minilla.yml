@@ -1,0 +1,2 @@
+ENV: minilla
+GCP_PROJECT_ID: village-go-minilla
