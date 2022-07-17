@@ -13,6 +13,10 @@ var ErrResourceNotFound = fmt.Errorf("resource not found")
 
 // RSSFeed
 
+type InvokerFeed interface {
+	Invoke(ctx context.Context, setting *entity.FeedSetting) error
+}
+
 type FetcherFeed interface {
 	Fetch(
 		ctx context.Context,
@@ -89,8 +93,10 @@ type DiscordClient interface {
 }
 
 type Usecase struct {
-	StoreFeedHistory StoreFeedHistory
-	StoreFeedSetting StoreFeedSetting
-	FetchersFeed     FetchersFeed
-	DiscordClient    DiscordClient
+	StoreFeedHistory                  StoreFeedHistory
+	StoreFeedSetting                  StoreFeedSetting
+	AvailableFeedSubscriberPublishers FeedSubscriberPublishers
+	InvokerFeed                       InvokerFeed
+	FetchersFeed                      FetchersFeed
+	DiscordClient                     DiscordClient
 }

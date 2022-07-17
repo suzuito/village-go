@@ -5,24 +5,28 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/bwmarrin/discordgo"
 	"github.com/getsentry/sentry-go"
 	"github.com/rs/zerolog/log"
 	"github.com/suzuito/village-go/pkg/entity"
 )
 
-func (t *Usecase) InvokeFeeds(ctx context.Context) error {
+func (t *Usecase) InvokeFeeds(
+	ctx context.Context,
+) error {
 	settings := []*entity.FeedSetting{}
 	if err := t.StoreFeedSetting.GetFeedSettings(ctx, &settings); err != nil {
 		return fmt.Errorf("GetFeedSettings is failed : %w", err)
 	}
 	for _, setting := range settings {
-		now := time.Now()
-		if err := t.PublishFeed(ctx, now, setting); err != nil {
-			sentry.CaptureException(err)
-			log.Error().Err(err).Msgf("PublishFeed is failed")
-			continue
+		if err := t.InvokerFeed.Invoke(ctx, setting); err != nil {
+			return fmt.Errorf("Invoke is failed : %w", err)
 		}
+		// now := time.Now()
+		// if err := t.PublishFeed(ctx, now, setting); err != nil {
+		// 	sentry.CaptureException(err)
+		// 	log.Error().Err(err).Msgf("PublishFeed is failed")
+		// 	continue
+		// }
 		log.Info().Str("FeedSettingID", string(setting.ID)).Msgf("InvokePublishFeed")
 	}
 	return nil
@@ -50,7 +54,14 @@ func (t *Usecase) PublishFeed(
 				return fmt.Errorf("FilterAlreadySent is failed : %w", err)
 			}
 		}
-		result, err := t.PublishFeedEach(ctx, setting, subscriber, filteredItems)
+		subscriberPublisher, exists := t.AvailableFeedSubscriberPublishers[subscriber.ID]
+		if !exists {
+			err := fmt.Errorf("unsupported subscriber %s", subscriber.ID)
+			log.Error().Err(err).Send()
+			sentry.CaptureException(err)
+			continue
+		}
+		result, err := subscriberPublisher.Publish(ctx, setting, items)
 		if err != nil {
 			log.Error().Err(err).Msgf("PublishEach is failed")
 			sentry.CaptureException(err)
@@ -69,6 +80,23 @@ func (t *Usecase) PublishFeed(
 	return nil
 }
 
+type FeedSubscriberPublisherResult struct {
+	Success []*entity.FeedItem
+	Fail    []*entity.FeedItem
+}
+
+type FeedSubscriberPublisher interface {
+	FeedSubscriberID() entity.FeedSubscriberID
+	Publish(
+		ctx context.Context,
+		setting *entity.FeedSetting,
+		items []*entity.FeedItem,
+	) (*FeedSubscriberPublisherResult, error)
+}
+
+type FeedSubscriberPublishers map[entity.FeedSubscriberID]FeedSubscriberPublisher
+
+/*
 type PublishFeedEachResult struct {
 	Success []*entity.FeedItem
 	Fail    []*entity.FeedItem
@@ -129,3 +157,4 @@ func (t *Usecase) PublishEachDiscord(
 	}
 	return result, errReturned
 }
+*/

@@ -5,4 +5,4 @@ init:
 	echo "Firestore -> OK"
 	docker-compose exec -T local /bin/sh -c 'go run ./cmd/init-static-feed-settings/*.go'
 test:
-	echo "FIXME!"
+	docker-compose exec -T local /bin/sh -c 'go test ./...'
