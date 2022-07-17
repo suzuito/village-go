@@ -1,6 +1,5 @@
 steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  dir: './gcf'
   args:
   - gcloud
   - functions
@@ -10,6 +9,6 @@ steps:
   - --trigger-topic=trigger-InitStaticFeedSettings
   - --region=asia-northeast1
   - --project=${PROJECT_ID}
-  - --env-vars-file=${PROJECT_ID}.yml
+  - --env-vars-file=gcf/${PROJECT_ID}.yml
   - --set-secrets=SENTRY_DSN=projects/${PROJECT_ID}/secrets/SENTRY_DSN:latest
   - --service-account=feed-sa@${PROJECT_ID}.iam.gserviceaccount.com
