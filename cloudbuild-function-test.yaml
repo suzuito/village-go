@@ -1,15 +1,20 @@
 steps:
+- name: golang:1.16
+  entrypoint: /bin/bash
+  args:
+  - -c
+  - cd gcf && go mod download && go mod vendor
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  dir: gcf
   args:
   - gcloud
   - functions
   - deploy
-  - InitStaticFeedSettings
+  - Test
+  - --source=gcf
   - --runtime=go116
-  - --trigger-topic=trigger-InitStaticFeedSettings
+  - --allow-unauthenticated
   - --region=asia-northeast1
   - --project=${PROJECT_ID}
-  - --env-vars-file=${PROJECT_ID}.yml
+  - --env-vars-file=gcf/${PROJECT_ID}.yml
   - --set-secrets=SENTRY_DSN=projects/${PROJECT_ID}/secrets/SENTRY_DSN:latest
   - --service-account=feed-sa@${PROJECT_ID}.iam.gserviceaccount.com
