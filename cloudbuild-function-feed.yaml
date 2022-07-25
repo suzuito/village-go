@@ -10,6 +10,7 @@ steps:
   - functions
   - deploy
   - InvokeFeeds
+  - --source=gcf
   - --runtime=go116
   - --trigger-topic=trigger-InvokeFeeds
   - --region=asia-northeast1

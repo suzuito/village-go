@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	_ "github.com/GoogleCloudPlatform/functions-framework-go/funcframework"
+	_ "github.com/GoogleCloudPlatform/functions-framework-go"
 	"github.com/getsentry/sentry-go"
 	"github.com/suzuito/village-go/pkg/inject"
 	"github.com/suzuito/village-go/pkg/usecase"

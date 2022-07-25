@@ -10,6 +10,7 @@ steps:
   - functions
   - deploy
   - InitStaticFeedSettings
+  - --source=gcf
   - --runtime=go116
   - --trigger-topic=trigger-InitStaticFeedSettings
   - --region=asia-northeast1
