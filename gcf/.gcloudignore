@@ -14,8 +14,10 @@
 .gitignore
 
 node_modules
-#!include:.gitignore
 
 # 依存解決はvendorディレクトリを使用するため、以下はアップロードしないようにする。
+# こうする理由は、vendorディレクトリとgo.modの整合性が取れていない場合にエラーとなるため。
+# gcloud functions deploy コマンドの内部処理過程は不明だが、vendorディレクトリとgo.modファイルが同時に存在すると
+# たまに不整合のためエラーとなる。
 go.mod
 go.sum
