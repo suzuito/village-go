@@ -15,3 +15,7 @@
 
 node_modules
 #!include:.gitignore
+
+# 依存解決はvendorディレクトリを使用するため、以下はアップロードしないようにする。
+go.mod
+go.sum

@@ -3,7 +3,7 @@ steps:
   entrypoint: /bin/bash
   args:
   - -c
-  - cd gcf && go version && ls -la && ls -la ../ && go mod download && echo hoge && go mod vendor
+  - cd gcf && go version && go mod download && go mod vendor
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   args:
   - gcloud
