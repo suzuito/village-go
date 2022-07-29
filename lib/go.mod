@@ -11,12 +11,13 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/rs/zerolog v1.27.0
 	golang.org/x/oauth2 v0.0.0-20220630143837-2104d58473e0
-	google.golang.org/api v0.86.0
-	google.golang.org/grpc v1.47.0
+	google.golang.org/api v0.89.0
+	google.golang.org/grpc v1.48.0
 )
 
 require (
 	cloud.google.com/go v0.102.0 // indirect
+	cloud.google.com/go/compute v1.7.0 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/dghubble/sling v1.4.0 // indirect
@@ -24,6 +25,7 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
+	github.com/googleapis/enterprise-certificate-proxy v0.1.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.4.0 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
