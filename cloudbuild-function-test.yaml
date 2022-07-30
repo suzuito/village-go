@@ -13,6 +13,7 @@ steps:
   - --source=gcf
   - --runtime=go116
   - --allow-unauthenticated
+  - --trigger-http
   - --region=asia-northeast1
   - --project=${PROJECT_ID}
   - --env-vars-file=gcf/${PROJECT_ID}.yml
